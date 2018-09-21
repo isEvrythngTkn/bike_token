@@ -2,7 +2,7 @@ const BikeCoinCrowdsale = artifacts.require('./BikeCoinCrowdsale.sol');
 const BikeCoin = artifacts.require('./BikeCoin.sol');
 
 module.exports = function(deployer, network, accounts) {
-    const rate = new web3.BigNumber(1000);
+    const rate = new web3.BigNumber(314159);
     const wallet = accounts[1];
 
     return deployer
@@ -16,5 +16,9 @@ module.exports = function(deployer, network, accounts) {
                 wallet,
                 BikeCoin.address
             );
+        })
+        .then(() => {
+            bikeCoinInstance = BikeCoin.at(BikeCoin.address);
+            bikeCoinInstance.transferOwnership(BikeCoinCrowdsale.address);
         });
 };
